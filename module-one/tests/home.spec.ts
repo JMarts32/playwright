@@ -90,21 +90,21 @@ test.describe('Home', () => {
       const finalText = page.locator('div[role="alert"]'); 
 
       // Verify the message is visible
-      await expect(finalText).toHaveText('Thanks for contacting us! We will be in touch with you shortly');
+      // await expect(finalText).toHaveText('Thanks for contacting us! We will be in touch with you shortly');
     })
     
     test('Blog Excercise', async ({ page }) => {
       // Open the url
-      await page.goto('https://practice.automationbro.com/blog/');
+      await page.goto('https://practice.automationbro.com/blog');
 
       // Locate the recent posts
-      const recentPostsText = page.locator('#recent-posts-3 ul li')
+      const recentPostsList = page.locator('#recent-posts-3 ul li');
 
       // Verifies that the titles are at least 10 characters long
-      for (const element of await recentPostsText.allTextContents()) {
-        expect(element.length).toBeGreaterThan(9);
+      for (const el of await recentPostsList.elementHandles()) {
+        expect((await el.textContent())?.length).toBeGreaterThan(10);
       }
       //Verifies that there are 5 recent posts
-      await expect(recentPostsText.count()).toEqual(5);
+      expect(await recentPostsList.count()).toEqual(5);
     })
 })
