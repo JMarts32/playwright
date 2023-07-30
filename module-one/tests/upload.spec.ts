@@ -15,6 +15,9 @@ test.describe('', () => {
         // click the submit button
         page.locator('#upload_1').click();
 
+        //wait for the element to be fully charged
+        await page.locator('#wfu_messageblock_header_1_label_1').waitFor({state: 'visible', timeout: 10000});
+
         // assertion
         await expect(page.locator('#wfu_messageblock_header_1_label_1')).toContainText('uploaded successfully')
     })
